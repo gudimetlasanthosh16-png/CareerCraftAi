@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <title>CareerCraft AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* For custom scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1a1a1a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #4f46e5;
+        border-radius: 4px;
+      }
+       /* For range input custom track */
+      .range-input::-webkit-slider-runnable-track {
+        background: #374151; /* bg-gray-700 */
+      }
+      .range-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #10b981; /* bg-emerald-500 */
+        cursor: pointer;
+        margin-top: -6px;
+        box-shadow: 0 0 10px #10b981;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#0d1117',
+              secondary: '#161b22',
+              accent: '#4f46e5',
+              'accent-hover': '#4338ca',
+              'cyber-cyan': '#08fdd8',
+              'slate-900': '#0f172a',
+              'slate-800': '#1e293b',
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out',
+              'slide-up': 'slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+              'slide-in-right': 'slideInRight 0.5s ease-out',
+              'background-pan': 'backgroundPan 15s linear infinite',
+              'pulse-glow': 'pulseGlow 2s infinite ease-in-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0 },
+                '100%': { opacity: 1 },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(30px)', opacity: 0 },
+                '100%': { transform: 'translateY(0)', opacity: 1 },
+              },
+              slideInRight: {
+                '0%': { transform: 'translateX(-20px)', opacity: 0 },
+                '100%': { transform: 'translateX(0)', opacity: 1 },
+              },
+              backgroundPan: {
+                '0%': { 'background-position': '0% 50%' },
+                '50%': { 'background-position': '100% 50%' },
+                '100%': { 'background-position': '0% 50%' },
+              },
+              pulseGlow: {
+                '0%, 100%': { opacity: 1, 'box-shadow': '0 0 15px #4f46e5' },
+                '50%': { opacity: 0.8, 'box-shadow': '0 0 25px #4f46e5' },
+              }
+            },
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
+    "jspdf": "https://aistudiocdn.com/jspdf@^3.0.3",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-primary text-gray-200 font-sans">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>

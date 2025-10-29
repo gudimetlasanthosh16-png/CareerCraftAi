@@ -75,9 +75,16 @@ export enum ActiveTab {
   Jobs = 'Jobs',
   Skills = 'Skills',
   Interview = 'Interview',
+  Outreach = 'Outreach',
 }
 
 export interface ChatMessage {
   role: 'user' | 'model';
   content: string;
+}
+
+export interface OutreachContent {
+  elevatorPitch: string;
+  linkedinMessage: string;
+  informationalInterviewEmail: string;
 }

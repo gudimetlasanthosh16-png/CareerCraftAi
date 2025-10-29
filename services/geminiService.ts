@@ -1,8 +1,7 @@
 
 
-
 import { GoogleGenAI, Type } from '@google/genai';
-import { CareerPlan, ChatMessage } from '../types';
+import { CareerPlan, ChatMessage, OutreachContent } from '../types';
 
 if (!process.env.API_KEY) {
   throw new Error("API_KEY environment variable not set");
@@ -221,6 +220,52 @@ export const getInterviewResponse = async (messages: ChatMessage[], careerPlan: 
     });
     const response = await chat.sendMessage({ message });
     return response.text;
+};
+
+const outreachSchema = {
+    type: Type.OBJECT,
+    properties: {
+        elevatorPitch: { 
+            type: Type.STRING, 
+            description: "A compelling 30-second elevator pitch (2-4 sentences) summarizing the user's professional identity and goals." 
+        },
+        linkedinMessage: { 
+            type: Type.STRING, 
+            description: "A concise and professional message (3-5 sentences) for a LinkedIn connection request to a recruiter or professional in their target field. It should be personalized and state the purpose of connecting." 
+        },
+        informationalInterviewEmail: { 
+            type: Type.STRING, 
+            description: "A professional and respectful email template to request an informational interview. It should have a clear subject line, introduce the user, state the reason for outreach, and propose a brief meeting. Use placeholders like [Their Name] and [Company Name]." 
+        },
+    },
+    required: ["elevatorPitch", "linkedinMessage", "informationalInterviewEmail"],
+};
+
+export const generateOutreachContent = async (careerPlan: CareerPlan): Promise<OutreachContent> => {
+    const systemInstruction = `You are a career coach and networking expert. Based on the user's career plan, generate tailored content for professional outreach. The tone should be confident, professional, and approachable. Ensure the output is a valid JSON object matching the provided schema. Do not include any markdown formatting.`;
+    const prompt = `Here is the user's career plan. Generate an elevator pitch, a LinkedIn connection request message, and an informational interview request email based on this information.
+---
+Resume Summary: ${careerPlan.resume.summary}
+Career Goals: ${careerPlan.resume.careerGoals?.join(', ')}
+Target Roles: ${careerPlan.jobSuggestions.map(j => j.title).slice(0,2).join(', ')}
+---`;
+
+    const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt,
+        config: {
+            systemInstruction,
+            responseMimeType: "application/json",
+            responseSchema: outreachSchema,
+        },
+    });
+
+    try {
+        return JSON.parse(response.text.trim());
+    } catch (e) {
+        console.error("Failed to parse Gemini response for outreach content:", response.text);
+        throw new Error("The AI returned an invalid response for outreach content.");
+    }
 };
 
 

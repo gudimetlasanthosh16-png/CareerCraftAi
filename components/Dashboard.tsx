@@ -10,6 +10,7 @@ import JobSuggestions from './JobSuggestions';
 import SkillRecommendations from './SkillRecommendations';
 import ResumePrintable from './ResumePrintable';
 import InterviewPrep from './InterviewPrep';
+import OutreachGenerator from './OutreachGenerator';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -100,6 +101,8 @@ const Dashboard: React.FC<DashboardProps> = ({ data, activeTab, setActiveTab }) 
         return <SkillRecommendations data={data.skillRecommendations} />;
       case ActiveTab.Interview:
         return <InterviewPrep careerPlan={data} />;
+      case ActiveTab.Outreach:
+        return <OutreachGenerator careerPlan={data} />;
       default:
         return null;
     }
